@@ -1,7 +1,7 @@
 // Time Complexity: Best: O(n logn)
 //					Average: O(n logn)
-//					Worst: O(n logn)
-// Space Complexity: O(n)
+//					Worst: O(n^2)
+// Space Complexity: O(logn)
 
 const unsortedNums = [35, 21, 52, 38, 59, 79, 81, 64, 38, 63];
 
