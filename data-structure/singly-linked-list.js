@@ -32,33 +32,30 @@ class SinglyLinkedList {
     }
 
     pop() {
-        if (!this.head) return null;
-
-        let newTail = this.head;
-        while (newTail.next.next) {
-            newTail = newTail.next;
+        if(!this.head) return undefined;
+        let current = this.head;
+        let newTail = current;
+        while(current.next){
+            newTail = current;
+            current = current.next;
         }
-
-        const poppedNode = newTail.next;
-        newTail.next = null;
         this.tail = newTail;
+        this.tail.next = null;
         this.length--;
-        if (this.length === 0) {
+        if(this.length === 0){
             this.head = null;
             this.tail = null;
         }
-
-        return poppedNode;
+        return current;
     }
 
     shift() {
-        if (!this.head) return null;
+        if (!this.head) return undefined;
 
         const shiftedNode = this.head;
         this.head = this.head.next;
         this.length--;
         if (this.length === 0) {
-            this.head = null;
             this.tail = null;
         }
 
@@ -108,7 +105,7 @@ class SinglyLinkedList {
         if (index === this.length) return !!this.push(val);
 
         const newNode = new Node(val);
-        const prevNode = get(index - 1);
+        const prevNode = this.get(index - 1);
         const nextNode = prevNode.next;
 
         prevNode.next = newNode;
@@ -121,7 +118,7 @@ class SinglyLinkedList {
     remove(index) {
         if (index < 0 || index > this.length) return false;
         if (index === 0) return this.shift(val);
-        if (index === this.length) return this.pop(val);
+        if (index === this.length - 1) return this.pop(val);
 
         const prevNode = get(index - 1);
         const removedNode = prevNode.next;
@@ -136,14 +133,14 @@ class SinglyLinkedList {
         if (this.length === 0) return null;
 
         let reservedNode = this.head;
-        let currentNode = this.head.next;
+        let nextNode = this.head.next;
         this.head = this.tail;
         this.tail = reservedNode;
         reservedNode.next = null;
 
-        while (currentNode.next) {
-            const tempNode = currentNode;
-            currentNode = currentNode.next;
+        while (nextNode) {
+            const tempNode = nextNode;
+            nextNode = nextNode.next;
             tempNode.next = reservedNode;
             reservedNode = tempNode;
         }
